@@ -1,6 +1,6 @@
 {
   "name": "@unicreators/sql-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "sql-parser is a library that converts expressions into T-SQL.",
   "main": "dist/index.js",
   "keywords": [

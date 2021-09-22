@@ -5,7 +5,7 @@
 /// yichen <d.unicreators@gmail.com>
 ///
 
-import { ExpressionType, SqlBinary, SqlColumn, SqlDelete, SqlExpression, SqlInsert, SqlOrderby, SqlSelect, SqlTable, SqlUpdate, SqlValue, SqlAlias, SqlLimit, SqlFunc, SqlGroupby, SqlIn } from "./expr";
+import { ExpressionType, SqlBinary, SqlColumn, SqlDelete, SqlExpression, SqlInsert, SqlOrderby, SqlSelect, SqlTable, SqlUpdate, SqlValue, SqlAlias, SqlLimit, SqlFunc, SqlGroupby, SqlIn, SqlConst } from "./expr";
 
 
 const operators = {
@@ -19,6 +19,7 @@ const operators = {
     [ExpressionType.ASSIGN]: '=',
     [ExpressionType.EQ]: '=',
     [ExpressionType.NE]: '<>',
+    [ExpressionType.IS]: 'IS',
 }
 
 export class MySQLExpressionParser {
@@ -147,11 +148,17 @@ export class MySQLExpressionParser {
             case ExpressionType.LT:
             case ExpressionType.LTE:
             case ExpressionType.LIKE:
-            case ExpressionType.ASSIGN: {
+            case ExpressionType.ASSIGN:
+            case ExpressionType.IS: {
                 let _expr = expr as SqlBinary;
                 this.visit(_expr.left);
                 this.append(` ${operators[expr.type]} `);
                 this.visit(_expr.right);
+                break;
+            }
+            case ExpressionType.CONST:{
+                let _expr = expr as SqlConst;
+                this.append(`${_expr.constant}`);
                 break;
             }
             case ExpressionType.VALUE: {
@@ -183,7 +190,7 @@ export class MySQLExpressionParser {
                     this.append(`${_expr.offset}, `);
                 this.append(`${_expr.count}`);
                 break;
-            }
+            }           
             case ExpressionType.GROUPBY: {
                 let _expr = expr as SqlGroupby;
                 this.append(` GROUP BY `);

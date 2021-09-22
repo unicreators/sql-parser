@@ -9,7 +9,7 @@ import {
     ExpressionType, SqlBinary, SqlColumn, SqlExpression,
     SqlOrderby, SqlSelect, SqlUpdate, SqlDelete, SqlInsert,
     SqlTable, SqlValue, SqlLimit, SqlGroupby, SqlAlias,
-    SqlAssign, SqlSum, SqlCount, SqlMin, SqlMax, SqlIn
+    SqlAssign, SqlSum, SqlCount, SqlMin, SqlMax, SqlIn, SqlConst
 } from "./expr";
 import { MySQLExpressionParser } from "./parser";
 
@@ -141,4 +141,8 @@ export const $assign = (column: SqlColumn | string, value: SqlValue | any): SqlA
 export const $in = (column: SqlColumn | string, ...values: Array<any>): SqlIn =>
     new SqlIn(normalize($column)(column), $value(values));
 
+export const $isNull = (column: SqlColumn | string): SqlBinary =>
+    new SqlBinary(ExpressionType.IS, normalize($column)(column), new SqlConst('NULL'));
 
+export const $isNotNull = (column: SqlColumn | string): SqlBinary =>
+    new SqlBinary(ExpressionType.IS, normalize($column)(column), new SqlConst('NOT NULL'));

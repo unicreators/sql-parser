@@ -19,6 +19,7 @@ var operators = (_a = {},
     _a[expr_1.ExpressionType.ASSIGN] = '=',
     _a[expr_1.ExpressionType.EQ] = '=',
     _a[expr_1.ExpressionType.NE] = '<>',
+    _a[expr_1.ExpressionType.IS] = 'IS',
     _a);
 var MySQLExpressionParser = /** @class */ (function () {
     function MySQLExpressionParser(parameterPlaceholder) {
@@ -143,11 +144,17 @@ var MySQLExpressionParser = /** @class */ (function () {
             case expr_1.ExpressionType.LT:
             case expr_1.ExpressionType.LTE:
             case expr_1.ExpressionType.LIKE:
-            case expr_1.ExpressionType.ASSIGN: {
+            case expr_1.ExpressionType.ASSIGN:
+            case expr_1.ExpressionType.IS: {
                 var _expr = expr;
                 this.visit(_expr.left);
                 this.append(" " + operators[expr.type] + " ");
                 this.visit(_expr.right);
+                break;
+            }
+            case expr_1.ExpressionType.CONST: {
+                var _expr = expr;
+                this.append("" + _expr.constant);
                 break;
             }
             case expr_1.ExpressionType.VALUE: {

@@ -1,7 +1,7 @@
 import 'mocha';
 import { expect } from 'chai';
 
-import { $alias, $and, $assign, $column, $contains, $count, $delete, $endsWith, $eq, $gt, $in, $insert, $limit, $lt, $lte, $max, $min, $ne, $or, $orderby, $select, $startsWith, $sum, $table, $update } from '../src';
+import { $alias, $and, $assign, $column, $contains, $count, $delete, $endsWith, $eq, $gt, $in, $insert, $isNotNull, $isNull, $limit, $lt, $lte, $max, $min, $ne, $or, $orderby, $select, $startsWith, $sum, $table, $update } from '../src';
 
 describe('index.test.ts', function () {
 
@@ -99,6 +99,12 @@ describe('index.test.ts', function () {
             limit: $limit(6, 4)
         });
         expect(result.sql).equal('SELECT * FROM users LIMIT 4, 6');
+        expect(result.values).deep.equal([]);
+
+        result = $select('users', {
+            where: $or($isNull('name'), $isNotNull('level'))
+        });
+        expect(result.sql).equal('SELECT * FROM users WHERE (name IS NULL) OR (level IS NOT NULL)');
         expect(result.values).deep.equal([]);
 
     });

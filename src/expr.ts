@@ -27,6 +27,7 @@ export enum ExpressionType {
     GTE,
     LTE,
     IN,
+    
 
     VALUE,
     LIMIT,
@@ -34,12 +35,21 @@ export enum ExpressionType {
     GROUPBY,
 
     ALIAS,
-    FUNC
+    FUNC,
+
+    IS,
+    CONST,
 
 }
 
 export abstract class SqlExpression {
     constructor(public readonly type: ExpressionType) { }
+}
+
+export class SqlConst extends SqlExpression {
+    constructor(public readonly constant: String) {
+        super(ExpressionType.CONST);
+    }
 }
 
 export class SqlClause extends SqlExpression {

@@ -21,11 +21,17 @@ export declare enum ExpressionType {
     ORDERBY = 19,
     GROUPBY = 20,
     ALIAS = 21,
-    FUNC = 22
+    FUNC = 22,
+    IS = 23,
+    CONST = 24
 }
 export declare abstract class SqlExpression {
     readonly type: ExpressionType;
     constructor(type: ExpressionType);
+}
+export declare class SqlConst extends SqlExpression {
+    readonly constant: String;
+    constructor(constant: String);
 }
 export declare class SqlClause extends SqlExpression {
     constructor(type: ExpressionType);

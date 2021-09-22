@@ -59,3 +59,5 @@ export declare const $value: (value: any) => SqlValue;
 export declare const $alias: (expr: SqlExpression, alias: string) => SqlAlias;
 export declare const $assign: (column: SqlColumn | string, value: SqlValue | any) => SqlAssign;
 export declare const $in: (column: SqlColumn | string, ...values: Array<any>) => SqlIn;
+export declare const $isNull: (column: SqlColumn | string) => SqlBinary;
+export declare const $isNotNull: (column: SqlColumn | string) => SqlBinary;

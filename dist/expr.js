@@ -18,7 +18,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SqlDelete = exports.SqlInsert = exports.SqlUpdate = exports.SqlSelect = exports.SqlIn = exports.SqlAssign = exports.SqlBinary = exports.SqlValue = exports.SqlOrderby = exports.SqlColumn = exports.SqlMin = exports.SqlMax = exports.SqlSum = exports.SqlCount = exports.SqlFunc = exports.SqlAlias = exports.SqlTable = exports.SqlGroupby = exports.SqlLimit = exports.SqlClause = exports.SqlExpression = exports.ExpressionType = void 0;
+exports.SqlDelete = exports.SqlInsert = exports.SqlUpdate = exports.SqlSelect = exports.SqlIn = exports.SqlAssign = exports.SqlBinary = exports.SqlValue = exports.SqlOrderby = exports.SqlColumn = exports.SqlMin = exports.SqlMax = exports.SqlSum = exports.SqlCount = exports.SqlFunc = exports.SqlAlias = exports.SqlTable = exports.SqlGroupby = exports.SqlLimit = exports.SqlClause = exports.SqlConst = exports.SqlExpression = exports.ExpressionType = void 0;
 /// yichen <d.unicreators@gmail.com>
 ///
 var ExpressionType;
@@ -46,6 +46,8 @@ var ExpressionType;
     ExpressionType[ExpressionType["GROUPBY"] = 20] = "GROUPBY";
     ExpressionType[ExpressionType["ALIAS"] = 21] = "ALIAS";
     ExpressionType[ExpressionType["FUNC"] = 22] = "FUNC";
+    ExpressionType[ExpressionType["IS"] = 23] = "IS";
+    ExpressionType[ExpressionType["CONST"] = 24] = "CONST";
 })(ExpressionType = exports.ExpressionType || (exports.ExpressionType = {}));
 var SqlExpression = /** @class */ (function () {
     function SqlExpression(type) {
@@ -54,6 +56,16 @@ var SqlExpression = /** @class */ (function () {
     return SqlExpression;
 }());
 exports.SqlExpression = SqlExpression;
+var SqlConst = /** @class */ (function (_super) {
+    __extends(SqlConst, _super);
+    function SqlConst(constant) {
+        var _this = _super.call(this, ExpressionType.CONST) || this;
+        _this.constant = constant;
+        return _this;
+    }
+    return SqlConst;
+}(SqlExpression));
+exports.SqlConst = SqlConst;
 var SqlClause = /** @class */ (function (_super) {
     __extends(SqlClause, _super);
     function SqlClause(type) {

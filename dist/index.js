@@ -3,7 +3,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.$in = exports.$assign = exports.$alias = exports.$value = exports.$table = exports.$column = exports.$limit = exports.$orderby = exports.$max = exports.$min = exports.$count = exports.$sum = exports.$groupby = exports.$endsWith = exports.$startsWith = exports.$contains = exports.$lte = exports.$lt = exports.$gte = exports.$gt = exports.$ne = exports.$eq = exports.$or = exports.$and = exports.$delete = exports.$select = exports.$update = exports.$insert = void 0;
+exports.$isNotNull = exports.$isNull = exports.$in = exports.$assign = exports.$alias = exports.$value = exports.$table = exports.$column = exports.$limit = exports.$orderby = exports.$max = exports.$min = exports.$count = exports.$sum = exports.$groupby = exports.$endsWith = exports.$startsWith = exports.$contains = exports.$lte = exports.$lt = exports.$gte = exports.$gt = exports.$ne = exports.$eq = exports.$or = exports.$and = exports.$delete = exports.$select = exports.$update = exports.$insert = void 0;
 /// yichen <d.unicreators@gmail.com>
 ///
 var expr_1 = require("./expr");
@@ -154,4 +154,12 @@ var $in = function (column) {
     return new expr_1.SqlIn(normalize(exports.$column)(column), (0, exports.$value)(values));
 };
 exports.$in = $in;
+var $isNull = function (column) {
+    return new expr_1.SqlBinary(expr_1.ExpressionType.IS, normalize(exports.$column)(column), new expr_1.SqlConst('NULL'));
+};
+exports.$isNull = $isNull;
+var $isNotNull = function (column) {
+    return new expr_1.SqlBinary(expr_1.ExpressionType.IS, normalize(exports.$column)(column), new expr_1.SqlConst('NOT NULL'));
+};
+exports.$isNotNull = $isNotNull;
 //# sourceMappingURL=index.js.map
