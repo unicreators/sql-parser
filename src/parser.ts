@@ -81,11 +81,10 @@ export class MySQLExpressionParser {
                 let _expr = expr as SqlUpdate;
                 this.append(`UPDATE `);
                 this.visit(_expr.from);
-                this.append(` SET (`);
+                this.append(` SET `);
                 this.multi((_expr.sets || [])
                     .filter(s => s.type === ExpressionType.ASSIGN),
                     _e => this.visit(_e));
-                this.append(`)`);
                 if (_expr.where) {
                     this.append(` WHERE `);
                     this.visit(_expr.where);

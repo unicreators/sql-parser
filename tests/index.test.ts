@@ -112,15 +112,15 @@ describe('index.test.ts', function () {
     it('update', async () => {
 
         let result = $update('users', [$assign('col1', 10)]);
-        expect(result.sql).equal('UPDATE users SET (col1 = ?)');
+        expect(result.sql).equal('UPDATE users SET col1 = ?');
         expect(result.values).deep.equal([10]);
 
         result = $update('users', [$assign('col1', 10), { column: 'col2', value: 'a' }]);
-        expect(result.sql).equal('UPDATE users SET (col1 = ?, col2 = ?)');
+        expect(result.sql).equal('UPDATE users SET col1 = ?, col2 = ?');
         expect(result.values).deep.equal([10, 'a']);
 
         result = $update('users', [$assign('col1', 10), { column: 'col2', value: 'a' }], { where: $ne('col1', 30) });
-        expect(result.sql).equal('UPDATE users SET (col1 = ?, col2 = ?) WHERE col1 <> ?');
+        expect(result.sql).equal('UPDATE users SET col1 = ?, col2 = ? WHERE col1 <> ?');
         expect(result.values).deep.equal([10, 'a', 30]);
 
     });

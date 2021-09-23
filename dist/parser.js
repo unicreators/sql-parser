@@ -78,10 +78,9 @@ var MySQLExpressionParser = /** @class */ (function () {
                 var _expr = expr;
                 this.append("UPDATE ");
                 this.visit(_expr.from);
-                this.append(" SET (");
+                this.append(" SET ");
                 this.multi((_expr.sets || [])
                     .filter(function (s) { return s.type === expr_1.ExpressionType.ASSIGN; }), function (_e) { return _this.visit(_e); });
-                this.append(")");
                 if (_expr.where) {
                     this.append(" WHERE ");
                     this.visit(_expr.where);
